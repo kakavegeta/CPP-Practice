@@ -20,14 +20,15 @@ namespace  kv{
             void Insert(int index, int value);
             void PushBack(int value);
             void Prepend(int value);
+            void Delete(int index);
             void Remove(int value);
             int Find(int value) const;
         private:
             int capacity_{kMinCapacity};
             int size_{0};
             std::unique_ptr<int[]> data_;
-            int DetermineCapacity(int capacity) const;
-            void Resize(int size);
+            int DetermineCapacity(int new_capacity) const;
+            void Resize(int new_size);
             void IncreaseSize();
             void DecreaseSize();
     };
