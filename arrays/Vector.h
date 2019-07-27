@@ -1,3 +1,6 @@
+#ifndef VECTOR_H
+#define VECTOR_H
+
 #include <algorithm>;
 #include <iostream>;
 #include <stdexcept>;
@@ -9,7 +12,7 @@ template <typename Object>
 class Vector{
     public:
         explicit Vector(int initSize=0):
-            theSize(initSize), theCapacity(initSize)
+            theSize(initSize), theCapacity(initSize + SPARE_CAPACITY)
             {objects = new Object[theCapacity];}
         
         Vector(const Vector &rhs):
@@ -60,7 +63,7 @@ class Vector{
         {
             if (newsize > theCapacity)
             {
-                reserve(newSize*2);
+                reserve(newsize*2);
             }
             theSize = newsize;
         }
@@ -77,10 +80,38 @@ class Vector{
             delete [ ] newArray;
         }
 
+        void push_back(const Object &x){
+            if(theSize == theCapacity)
+                reserve(2*theCapacity+1);
+            objects[theSize++] = std::move(x);
+        }
 
+        void pop_back(const Object &x){
+            if(empty())
+                throw UnderflowException{ };
+            --theSize;
+        }
+
+        const Object & back() const {
+            if(empty()):
+                throw UnderflowException{ };
+            return objects[theSize-1];
+        }
         
+        typedef Object *iterator;
+        typedef const Object *const_iterator;
 
+        iterator begin( ) {return &objects[0];}
+        const_iterator begin( ) const {return &objects[0];}
+        iterator end( ) {return &objects[size()];} 
+        const_iterator end() {return &objects[size()];}
 
-
-
+        static const int SPARE_CAPACITY = 2;
+        
+    private:
+        int theSize;
+        int theCapacity;
+        Object *objects;
 };
+
+#endif
