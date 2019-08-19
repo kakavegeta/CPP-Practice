@@ -45,10 +45,16 @@ class AVLTree{
             return contains(root, x);
         }
 
-
-
         bool is_empty() const{
             return root==nullptr;
+        }
+
+        void print_tree( ) const {
+            if(is_empty()){
+                cout<<"Empty Tree"<<endl;
+            } else {
+                print_tree(root);
+            }
         }
 
         void make_empty( ){
@@ -153,6 +159,14 @@ class AVLTree{
                 delete t;
             }
             t = nullptr;
+        }
+
+        void print_tree(AVLNode *t) const{
+            if(t!=nullptr){
+                print_tree(t->left);
+                cout<<t->element<<endl;
+                print_tree(t->right);
+            }
         }
 
         AVLNode* clone(AVLNode *t) const{
