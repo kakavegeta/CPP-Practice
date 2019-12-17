@@ -65,9 +65,10 @@ void backtrack(std::vector<std::vector<char>>&board,
 
 std::vector<std::string> find_word (std::vector<std::vector<char>>&board, std::vector<std::string>&dict){
     std::vector<std::string> result;
+    TrieNode* root = build_trie(dict);
     for(int i=0; i<board.size(); ++i){
         for(int j=0; j<board[0].size(); ++j){
-            TrieNode* root = build_trie(dict);
+            //TrieNode* root = build_trie(dict);
             backtrack(board, root, i, j, result);
         }
     } 
