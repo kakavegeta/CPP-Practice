@@ -1,6 +1,6 @@
 1. What is dangling pointer? 
-Pointers that do not point to a valid object of the appropriate type.
-e.g.:
+Pointers that do not point to a valid object of the appropriate type.  
+e.g.:  
 ```
 int* get_ptr_five(){
     int x = 5;
