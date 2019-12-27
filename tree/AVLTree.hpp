@@ -25,17 +25,23 @@ class AVLTree{
         }
 
         AVLTree & operator=(const AVLTree &rhs){
+            AVLTree copy = rhs;
+            std::swap(*this, copy);
+            return *this;
+        }
+
+        AVLTree & operator=(AVLTree &&rhs){
             std::swap(root, rhs.root);
             return *this;
         }
 
-        const Comparable &find_min( ) const{
+        const Comparable & find_min( ) const{
             if(is_empty())
                 throw UnderflowException{ };
             return find_min(root)->element;
         }
 
-        const Comparable &find_max( ) const{
+        const Comparable & find_max( ) const{
             if(is_empty())
                 throw UnderflowException{ };
             return find_max(root)->element;
@@ -51,7 +57,7 @@ class AVLTree{
 
         void print_tree( ) const {
             if(is_empty()){
-                cout<<"Empty Tree"<<endl;
+                std::cout<<"Empty Tree"<<std::endl;
             } else {
                 print_tree(root);
             }
@@ -60,6 +66,18 @@ class AVLTree{
         void make_empty( ){
             make_empty(root);
         } 
+
+        void insert(const Comparable& x){
+            insert(x, root);
+        }
+
+        void insert(const Comparable&& x){
+            insert(std::move(x), root);
+        }
+
+        void remove(const Comparable& x){
+            remove(x, root);
+        }
 
     
     private:
@@ -140,6 +158,25 @@ class AVLTree{
             t->height = max(height(t->left), height(t->right)) + 1;
         }
 
+        AVLNode* find_min(AVLNode* t) const {
+            if(t==nullptr){
+                return nullptr;
+            }
+            if(t->left==nullptr){
+                return t;
+            }
+            return find_min(t->left);
+        }
+
+        AVLNode* find_max(AVLNode* t) const {
+            if(t != nullptr){
+                while(t->right != nullptr){
+                    t = t->right;
+                }
+            }
+            return t;
+        }
+
         bool contains(AVLNode *t, const Comparable &x) const{
             while (t!=nullptr){
                 if(t->element>x) 
@@ -164,7 +201,7 @@ class AVLTree{
         void print_tree(AVLNode *t) const{
             if(t!=nullptr){
                 print_tree(t->left);
-                cout<<t->element<<endl;
+                std::cout<<t->element<<std::endl;
                 print_tree(t->right);
             }
         }
