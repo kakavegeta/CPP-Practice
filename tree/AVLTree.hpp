@@ -103,6 +103,7 @@ class AVLTree{
                 insert(x, t->left);
             else if(x > t->element)
                 insert(x, t->right);
+            //std::cout <<"inserted " << x << std::endl;
             balance(t);
         }
 
@@ -143,16 +144,24 @@ class AVLTree{
             if(t==nullptr)
                 return;
             if(height(t->left)-height(t->right)>ALLOWED_IMBALANCE){
+                //std::cout << "left heavey " << std::endl;
                 if(height(t->left->left)>=height(t->left->right)){
+                    //std::cout << "rotate right" << std::endl;
                     rotate_right(t);
                 }else{
+                    //std::cout << "rotate left right" << std::endl;
                     rotate_left_right(t);
                 }
             }else{
-                if(height(t->right->right)>=height(t->right->left)){
-                    rotate_left(t);
-                }else{
-                    rotate_left_right(t);
+                if(height(t->right) - height(t->left) > ALLOWED_IMBALANCE){
+                    //std::cout << "right heavey" << std::endl;
+                    if(height(t->right->right)>=height(t->right->left)){
+                        //std::cout << "rotate left" << std::endl;
+                        rotate_left(t);
+                    }else{
+                        //std::cout <<"rotate right left" << std::endl;
+                        rotate_right_left(t);
+                    }
                 }
             }
             t->height = max(height(t->left), height(t->right)) + 1;
@@ -228,7 +237,7 @@ class AVLTree{
             x->right = y->left;
             y->left = x;
             x->height = max(height(x->left), height(x->right))+1;
-            y->height = max(height(y->left), height(y->right))+1;
+            y->height = max(height(y->left), x->height)+1;
             x = y;
         }
 
@@ -237,17 +246,17 @@ class AVLTree{
             x->left = y->right;
             y->right = x;
             x->height = max(height(x->left), height(x->right))+1;
-            y->height = max(height(y->left), height(y->right))+1;
+            y->height = max(height(y->left), x->height)+1;
             x = y;
         }
 
         void rotate_left_right(AVLNode *&x){
-            rotate_left(x->right);
+            rotate_left(x->left);
             rotate_right(x);
         }
 
         void rotate_right_left(AVLNode *&x){
-            rotate_right(x->left);
+            rotate_right(x->right);
             rotate_left(x);
         }
 

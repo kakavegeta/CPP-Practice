@@ -12,8 +12,9 @@ int main( )
 
     cout << "Checking... (no more output means success)" << endl;
 
-    for( i = GAP; i < NUMS; i = ( i + GAP ) % NUMS )
+    for( i = GAP; i != 0; i = ( i + GAP ) % NUMS )
         {t.insert( i );}
+    cout << "insertion finished" << endl;
     t.remove( 0 );
     for( i = 1; i < NUMS; i += 2 )
         {t.remove( i );}
