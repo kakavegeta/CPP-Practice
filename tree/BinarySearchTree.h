@@ -1,9 +1,8 @@
 #ifndef BINARY_SEARCH_TREE_H
 #define BINARY_SEARCH_TREE_H
 
-#include "dsexception.h"
+#include "dsexception.hpp"
 #include <algorithm>
-using namespace std;
 
 template <typename Comparable>
 class BinarySearchTree{
