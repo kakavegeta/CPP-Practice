@@ -18,12 +18,12 @@ template<typename T>
 void f(T&& param);
 f(expr)
 ```  
-a. if `expr` is lvalue with deduced type `E`, `T` deduced as `E&`  
-b. if `expr` is an rvalue, case 1 applies.
+- if `expr` is lvalue with deduced type `E`, `T` deduced as `E&`  
+- if `expr` is an rvalue, case 1 applies.
 
 3. By-value parameters:  
-a. if `expr`'s type is reference, ignore that;  
-b. if `expr` is `const` or `volatile`, ignore that;
-c. `T` is the result 
+- if `expr`'s type is reference, ignore that;  
+- if `expr` is `const` or `volatile`, ignore that;
+- `T` is the result 
 `expr`'s reference or const qualifier always dropped in deducing `T` 
 
