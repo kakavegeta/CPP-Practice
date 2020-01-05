@@ -103,15 +103,21 @@ class RBTree{
             }else{
                 y = z->parent->parent->left;
                 if(y->color == RED){
-
+                    z->parent->color = BLACK;
+                    y->color = BLACK;
+                    z->parent->parent->color = RED;
+                    z = z->parent->parent;
                 }
-                
+                else if(z == z->parent->left){
+                    z = z->parent;
+                    right_rotate(z);
+                }
+                z->parent->color = BLACK;
+                z->parent->parent->color = RED;
+                left_rotate(z->parent->parent);
             }
         }
     }
-    
-
-    
 };
 
 #endif
