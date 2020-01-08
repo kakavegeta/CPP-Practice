@@ -19,6 +19,7 @@ class BinaryHeap{
         }
 
         const T& find_min() const{
+            if(is_empty()) throw UnderflowException();
             return array[1];
         }
 
