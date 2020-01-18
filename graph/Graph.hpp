@@ -2,7 +2,7 @@
 #define GRAPH_H
 
 #include <vector>
-#include <queue>
+#include <deque>
 #include <string>
 
 enum COLOR {WHITE, GRAY, BLACK};
@@ -17,7 +17,7 @@ class Graph{
         std::vector<int> pres;
 
         explicit Graph(int Vnum)
-        : V{Vnum}, E{0}, adjs(Vnum), colors(Vnum), dists(Vnum) {}
+        : V{Vnum}, E{0}, adjs(Vnum), colors(Vnum), dists(Vnum), pres(Vnum) {}
         
         void add_edge(int u, int v){
             adjs[u].push_back(v);
@@ -42,7 +42,7 @@ class Graph{
         }
 };
 
-void BFS(Graph& g, int s){
+void BFS(Graph& g, int const s){
     for(int v=0; v<g.V && v!=s; ++v){
         g.colors[v] = WHITE;
         g.dists[v] = INT8_MAX;
@@ -52,19 +52,19 @@ void BFS(Graph& g, int s){
     g.colors[s] = GRAY;
     g.dists[s] = 0;
     g.pres[s] = -1;
+    std::deque<int> q;
+    q.push_back(s);
 
-    std::queue<int> q;
-    q.push(s);
-    
+    std::cout << "begin to search..." << std::endl; 
     while(!q.empty()){
         int u = q.front();
-        q.pop();
+        q.pop_front();
         for(int v:g.adjs[u]){
             if(g.color(v)==WHITE){
                 g.colors[v] = GRAY;
                 g.dists[v] = g.dist(u) + 1;
                 g.pres[v] = u;
-                q.push(v);
+                q.push_back(v);
             }
         }
         g.colors[u] = BLACK; 
