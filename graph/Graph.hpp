@@ -15,9 +15,11 @@ class Graph{
         std::vector<COLOR> colors;
         std::vector<int> dists;
         std::vector<int> pres;
+        std::vector<int> discvy_t;
+        std::vector<int> finish_t;
 
         explicit Graph(int Vnum)
-        : V{Vnum}, E{0}, adjs(Vnum), colors(Vnum), dists(Vnum), pres(Vnum) {}
+        : V{Vnum}, E{0}, adjs(Vnum), colors(Vnum), dists(Vnum), pres(Vnum), discvy_t(Vnum), finish_t(Vnum) {}
         
         void add_edge(int u, int v){
             adjs[u].push_back(v);
@@ -71,5 +73,31 @@ void BFS(Graph& g, int const s){
     }
 } 
 
+void DFS(Graph& g){
+    for(int v=0; v<g.V; ++v){
+        g.colors[v] = WHITE;
+        g.pres[v] = -1;
+    }
+
+    int time = 0;
+    for(int v=0; v<g.V; ++v){
+        if(g.colors[v]==WHITE) DFS_visit(g, time, v);
+    }
+}
+
+void DFS_visit(Graph& g, int& time, int const u){
+    time += 1;
+    g.colors[u] = GRAY;
+    g.discvy_t[u] = time;
+    for(int v=0; v<g.adjs[u].size(); ++v){
+        if(g.colors[v] == WHITE){
+            g.pres[v] = u;
+            DFS_visit(g, time, v);
+        }
+    }
+    g.colors[u] = BLACK;
+    time += 1;
+    g.finish_t[u] = time;
+}
 
 #endif

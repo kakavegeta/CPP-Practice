@@ -25,5 +25,10 @@ int main(){
         std::cout << g.dists[i] << std::endl;
     }
 
+    Graph g1 = Graph(6);
+    g1.add_edge(0, 1);
+    g1.add_edge(0, 3);
+    g1.add_edge(0, 3);
+
     return 0;
 }
