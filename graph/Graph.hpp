@@ -43,7 +43,7 @@ class Graph{
 };
 
 void BFS(Graph& g, int s){
-    for(int v=0; v<g.V; ++v){
+    for(int v=0; v<g.V && v!=s; ++v){
         g.colors[v] = WHITE;
         g.dists[v] = INT8_MAX;
         g.pres[v] = -1;
@@ -59,15 +59,15 @@ void BFS(Graph& g, int s){
     while(!q.empty()){
         int u = q.front();
         q.pop();
-        for(auto v:g.adjs[u]){
+        for(int v:g.adjs[u]){
             if(g.color(v)==WHITE){
-                g.color(v) = GRAY;
-                g.dist(v) = g.dist(u) + 1;
-                g.pre(v) = u;
+                g.colors[v] = GRAY;
+                g.dists[v] = g.dist(u) + 1;
+                g.pres[v] = u;
+                q.push(v);
             }
-            q.push(v);
         }
-        g.color(u) = BLACK; 
+        g.colors[u] = BLACK; 
     }
 } 
 

@@ -1,21 +1,26 @@
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include "Graph.hpp"
 
+int main(){
+    Graph g = Graph(7);
+    g.add_edge(0, 1);
+    g.add_edge(1, 2);
+    g.add_edge(2, 3);
+    g.add_edge(0, 4);
+    g.add_edge(4, 5);
+    g.add_edge(5, 6);
+    g.add_edge(1, 5);
+
+   
+    
+    BFS(g, 0);
+    /*
+    for(int i=0; i<7; ++i){
+        std::cout << g.dists[i] << std::endl;
+    }*/
 
 
-Graph::Graph(std::vector<std::vector<int>> M)
-: vertices(M.size()){
-    for(int i=0; i<M.size(); ++i){
-        vertices[i] = Vertex{i};
-        for(int j=0; j<M[0].size(); ++j){
-            if(M[i][j]==1){
-                Vertex v = vertices[i];
-                vertices[i].adjs.push_back(Vertex{j});
-            } 
-        }
-    }
 }
-
-Graph::
