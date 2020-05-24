@@ -43,7 +43,7 @@ class Stack {
         _size--;
     }
 
-    int top() {
+    const T& top() {
         if (empty()) throw StackEmptyException {};
         return _elements[_size-1];
     }
