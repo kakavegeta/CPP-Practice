@@ -16,4 +16,17 @@ int main(void) {
     }
 
     std::cout << std:: endl;
+
+    for (int i = 0; i < 10; i++)
+    {
+        list.push_back(i);
+    }
+
+    for(auto it = list.begin(); it != list.end(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    
+
 }
