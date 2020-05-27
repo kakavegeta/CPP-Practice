@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <iostream>
 
+namespace algo {
+
 const int DEFAULT_CAPACITY = 100;
 template<typename T>
 class Queue {
@@ -63,5 +65,5 @@ class Queue {
     Queue & operator = (const Queue & q);
 
 };
-
+}
 #endif
