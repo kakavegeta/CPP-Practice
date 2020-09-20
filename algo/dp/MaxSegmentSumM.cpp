@@ -37,12 +37,13 @@ int mmss(int *arr, int m, int n) {
     memset(cur, 0, sizeof(cur));
     memset(prev, 0, sizeof(prev));
 
-    for (i=1; i<=m; ++i) {
+    for (int i=1; i<=m; ++i){
         max_sum = INT_MIN;
-        for (j=i; j<=n; ++j) {
-            cur[j] = max(prev[j-1],cur[j-1]) + arr[j-1]; 
+        for (int j=i; j<=n; ++j) {
+            // dp[i][j] = max(dp[i][j-1]+s[j], max(dp[i-1][t]+s[j])), i-1<=t<j;
+            cur[j] = max(cur[j-1], prev[j-1]) + arr[j-1];
             prev[j-1] = max_sum;
-            max_sum = max(cur[j], max_sum);
+            max_sum = max(max_sum, cur[j]);
         }
     }
     return max_sum;
