@@ -1,5 +1,6 @@
 #include <iostream>
 #include "fenwick.h"
+#include "BIT.hpp"
 
 int main() {
     int data[10];
