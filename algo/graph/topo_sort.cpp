@@ -8,6 +8,7 @@
 #include <iostream>
 #include <climits>
 #include <stack>
+#include <queue>
 using namespace std;
 
 
@@ -35,18 +36,18 @@ bool topo_sort(const graph_t &g, int topo[]) {
         }
     }
     
-    stack<int> s;
+    queue<int> q;
     for (int i=0; i<n; ++i) {
-        if(in_degree[i]==0) s.push(i);
+        if(in_degree[i]==0) q.push(i);
     }
 
     int count = 0; 
-    while (!s.empty()) {
-        const int u = s.top(); s.pop();
+    while (!q.empty()) {
+        const int u = q.front(); q.pop();
         topo[count++] = u;
         for (int i=0; i<n; ++i) {
             if (g.matrix[u][i]<GRAPH_INF){
-                if (--in_degree[i]==0) s.push(i);
+                if (--in_degree[i]==0) q.push(i);
             }
         }
     }
